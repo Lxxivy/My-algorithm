@@ -1,0 +1,7 @@
+﻿.vscode/
+.idea/
+.cph/
+*.exe
+*.o
+*.obj
+*.log
