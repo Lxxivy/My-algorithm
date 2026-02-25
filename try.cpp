@@ -8,32 +8,30 @@ void solve()
 {
     int n;
     cin >> n;
-    auto ask = [&](int i, int j) -> void
+    vector<ll> a(n);
+    vector<ll> d(n);
+    priority_queue<
+        pair<long long, int>,
+        vector<pair<long long, int>>,
+        greater<pair<long long, int>>>
+        q;
+    ll ans = 0;
+    for (int i = 0; i < n; i++)
     {
-        cout << i << " " << j << "\n";
-        cout.flush();
-        string res;
-        cin >> res;
-        if (res == "WIN")
-        {
-            exit(0);
-        }
-    };
-    int ops = 0;
-    while (ops < 10000)
-    {
-
-        for (int i = 1; i <= n - 1 && ops < 10000; i++)
-        {
-            ask(i, i + 1);
-            ops++;
-        }
-        for (int i = n - 1; i >= 1 && ops < 10000; i--)
-        {
-            ask(i, i + 1);
-            ops++;
-        }
+        cin >> a[i];
+        ans += a[i];
+        d[i] = 1;
+        q.push({3 * a[i], i});
     }
+    for (int i = 0; i < n - 2; i++)
+    {
+        auto [cost, id] = q.top();
+        q.pop();
+        ans += cost;
+        d[id]++;
+        q.push({(2 * d[id] + 1) * a[id], id});
+    }
+    cout << ans;
 }
 
 int main()
